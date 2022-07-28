@@ -1,8 +1,10 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session); 
 const expressLayouts = require('express-ejs-layouts');
 const connectDB = require('./config/database');
 const PORT = process.env.PORT || 3000;
@@ -23,12 +25,14 @@ app.use(expressLayouts);
 app.set('layout', './layouts/main.ejs');
 app.use(express.urlencoded({ extended: true }));
 // sesssion middleware
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-
-  }));
+app.use(
+  session({
+      secret: 'keyboard cat',
+      resave: false,
+      saveUninitialized: false,
+      store: new MongoStore({ mongooseConnection: mongoose.connection})
+    })
+  );
 // passport middleware
 app.use(passport.session());
 app.use(passport.initialize());
