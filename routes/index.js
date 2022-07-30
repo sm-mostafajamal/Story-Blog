@@ -18,7 +18,7 @@ router.get('/dashboard', ensureAuth, async (req, res)=>{
         res.render('dashboard.ejs', {
             name: req.user.firstName,
             stories,
-            moment: moment
+            moment: moment,
 
         });
     } catch (e) {
