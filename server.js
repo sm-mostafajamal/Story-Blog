@@ -38,6 +38,11 @@ app.use(
 // passport middleware
 app.use(passport.session());
 app.use(passport.initialize());
+// set global variable
+app.use(function(req, res, next){
+  res.locals.user = req.user || null
+  next()
+});
 // setting the public folder to static
 app.use(express.static('public'));
 // parsing the data in json 
