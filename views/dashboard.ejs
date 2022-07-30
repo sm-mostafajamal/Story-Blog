@@ -3,7 +3,7 @@
 <p>Here are your stories</p>
 
 
-<% if(stories.lenght !== 0){ %>
+<% if(stories.length > 0){ %>
     <table class="striped">
         <thead>
             <tr>
@@ -13,17 +13,19 @@
                 <th></th>
             </tr>
         </thead>
+    <% stories.forEach(story => {%>
         <tbody>
-            <% stories.forEach(story => {%>
                 <tr>
                     <td><a href="/stories/<%= story._id %>"></a><%= story.title%></td>
                     <td><%=  moment(story.createdAt).format('MMMM Do YYYY, h:mm:ss a')  %></td>
                     <td><span class="dash-status"><%= story.status %></span></td>
                     <td></td>
                 </tr>    
-            <%})%>
         </tbody>
+    <%})%>
+
     </table>
+
 <% } else { %>
     <p>You have not created my stories</p>
 <% } %>
