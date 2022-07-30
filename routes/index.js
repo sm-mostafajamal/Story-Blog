@@ -4,12 +4,6 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth');
 const Story = require('../models/Story');
 const moment  = require('moment');
 
-// module.exports = {
-//     formatDate: function (date, format){
-//         return moment(date).format(format)
-//     }
-// }
-
 // @desc Login/Landing page
 // @route GET /
 router.get('/', ensureGuest,  (req, res)=>{
@@ -35,6 +29,3 @@ router.get('/dashboard', ensureAuth, async (req, res)=>{
 
 
 module.exports = router;
-
-
-// 1.15
