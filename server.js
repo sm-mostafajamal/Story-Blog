@@ -6,6 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session); 
 const expressLayouts = require('express-ejs-layouts');
+const methodOverride = require('method-override');
 const connectDB = require('./config/database');
 const PORT = process.env.PORT || 3000;
 const loginRoutes = require('./routes/index');
@@ -26,6 +27,15 @@ app.set('view enigne', 'ejs');
 app.use(expressLayouts);
 app.set('layout', './layouts/main.ejs');
 app.use(express.urlencoded({ extended: false }));
+// Method override
+app.use(methodOverride(function (req, res) {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    let  method = req.body._method
+    delete req.body._method
+    return method
+  }
+}))
 // sesssion middleware
 app.use(
   session({

@@ -55,19 +55,7 @@ router.get('/', ensureAuth, async (req, res)=>{
                 }else{
                     return ''
                 }
-            },
-            // select: function(selected, options){
-            //     return options
-            //             .fn(this)
-            //             .replace(
-            //                 new RegExp('value="' + selected + '"'),
-            //                 '$& selected="selected"'
-            //             )
-            //             .replace(
-            //                 new RegExp('>' + selected + '<option>'),
-            //                 ' selected="selected"$&'
-            //             )
-            // }
+            }
         })
     } catch (err) {
         console.error(err);
@@ -88,6 +76,21 @@ router.get('/edit/:id', ensureAuth, async (req, res)=>{
     else res.render('stories/edit.ejs', { story });
 });
 
+// @desc Update story 
+// @route PUT /stories/:id
+router.put('/:id', ensureAuth, async (req, res)=>{
+    let story = await Story.findById(req.params.id).lean();
+
+    if(!story) res.render('error/404.ejs');
+    if(story.user != req.user.id) res.redirect('/stories');
+    else {story = await Story.findOneAndUpdate({ _id: req.params.id }, req.body, {
+        new: true,
+        runValidators: true
+        });
+
+        res.redirect('/dashboard');
+    }
+});
 
 module.exports = router;
 
