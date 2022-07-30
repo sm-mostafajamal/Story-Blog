@@ -7,6 +7,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session); 
 const expressLayouts = require('express-ejs-layouts');
 const methodOverride = require('method-override');
+const cors = require('cors');
 const connectDB = require('./config/database');
 const PORT = process.env.PORT || 3000;
 const loginRoutes = require('./routes/index');
@@ -59,6 +60,8 @@ app.use(express.static('public'));
 app.use(express.json());
 // morgan middleware to check the connection logs in console in development mode
 if(process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+// cors
+app.use(cors());
 
 
 // Routes
