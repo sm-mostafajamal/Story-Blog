@@ -2,6 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { ensureAuth, ensureGuest } = require('../middleware/auth');
 const Story = require('../models/Story');
+const moment  = require('moment');
+
+// module.exports = {
+//     formatDate: function (date, format){
+//         return moment(date).format(format)
+//     }
+// }
 
 // @desc Login/Landing page
 // @route GET /
@@ -16,7 +23,9 @@ router.get('/dashboard', ensureAuth, async (req, res)=>{
         const stories = await Story.find({ user: req.user.id }).lean();
         res.render('dashboard.ejs', {
             name: req.user.firstName,
-            stories
+            stories,
+            moment: moment
+
         });
     } catch (e) {
         console.error(e);

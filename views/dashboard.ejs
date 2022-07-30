@@ -3,7 +3,7 @@
 <p>Here are your stories</p>
 
 
-<% if(stories == true){ %>
+<% if(stories.lenght !== 0){ %>
     <table class="striped">
         <thead>
             <tr>
@@ -14,11 +14,11 @@
             </tr>
         </thead>
         <tbody>
-            <% stories.forEach(el =>{%>
+            <% stories.forEach(story => {%>
                 <tr>
-                    <td><a href="/stories/<%= el._id %>"></a><%= stories.title%></td>
-                    <td><%= stories.createdAt %></td>
-                    <td><span class="dash-status"><%= stories.status %></span></td>
+                    <td><a href="/stories/<%= story._id %>"></a><%= story.title%></td>
+                    <td><%=  moment(story.createdAt).format('MMMM Do YYYY, h:mm:ss a')  %></td>
+                    <td><span class="dash-status"><%= story.status %></span></td>
                     <td></td>
                 </tr>    
             <%})%>
