@@ -18,7 +18,7 @@ router.post('/', ensureAuth, async (req, res)=>{
         res.redirect('/dashboard');
     } catch (err) {
         console.error(err);
-        res.render('error/500');
+        res.render('error/500.ejs');
     };
 });
 
@@ -55,13 +55,39 @@ router.get('/', ensureAuth, async (req, res)=>{
                 }else{
                     return ''
                 }
-            }
+            },
+            // select: function(selected, options){
+            //     return options
+            //             .fn(this)
+            //             .replace(
+            //                 new RegExp('value="' + selected + '"'),
+            //                 '$& selected="selected"'
+            //             )
+            //             .replace(
+            //                 new RegExp('>' + selected + '<option>'),
+            //                 ' selected="selected"$&'
+            //             )
+            // }
         })
     } catch (err) {
         console.error(err);
-        res.render('error/500');
+        res.render('error/500.ejs');
     }
 });
+
+
+// @desc show edit page
+// @route GET /stories/edit/:id
+router.get('/edit/:id', ensureAuth, async (req, res)=>{
+    const story = await Story.findOne({
+        _id: req.params.id
+    }).lean();
+
+    if(!story) res.render('error/404.ejs');
+    if(story.user != req.user.id) res.redirect('/stories');
+    else res.render('stories/edit.ejs', { story });
+});
+
 
 module.exports = router;
 
