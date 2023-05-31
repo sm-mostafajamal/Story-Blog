@@ -1,4 +1,4 @@
-## Steadfast Communications: <a href="https://story-blog.onrender.com/" target="_blank">Visit</a>
+## Story Blog: <a href="https://story-blog.onrender.com/" target="_blank">Visit</a>
 
 <a href="https://story-blog.onrender.com/" target="_blank"><img src="https://github.com/sm-mostafajamal/sm-mostafajamal/blob/main/images/gifs/storyBlog.gif" /></a>
 
